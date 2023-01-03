@@ -20,6 +20,7 @@ public class PostsController : Controller
     public IActionResult Index() {
       AcebookDbContext dbContext = new AcebookDbContext();
       List<Post> posts = dbContext.Posts.ToList();
+      posts.Reverse();
       ViewBag.Posts = posts;
       return View();
     }
