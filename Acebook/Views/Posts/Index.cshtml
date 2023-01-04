@@ -1,14 +1,21 @@
-<h1>Posts</h1>
+<h3 class="title is-3">Posts</h3>
 
 <form action="/posts" method="post">
   <input type="text" name="content"/>
   <input type="submit" value="Submit"/>
 </form>
 
+<br>
+
 @foreach (Post post in ViewBag.Posts)
 {
+<div class="box">
   <div>
   <b><p>@post.User.Name </p> </b>
   <p>@post.Content</p>
   </div>
+</div>
 }
+<br> 
+<br>
+<br>

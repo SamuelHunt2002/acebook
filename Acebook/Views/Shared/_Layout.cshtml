@@ -25,10 +25,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                    </ul>
+                        @if (Context.Session.GetString("Name") != null)
+{                       
+                        <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Sessions" asp-action="Logout">Sign Out</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sessions" asp-action="Profile">Profile</a>
+                        </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Hello, @Context.Session.GetString("Name")!</a>
+    </li>
                     </ul>
+}
+
+
                 </div>
             </div>
         </nav>
