@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using acebook.Models;
+using Microsoft.AspNetCore.Authentication;
+
 
 namespace acebook.Controllers;
 
@@ -35,6 +37,17 @@ public class SessionsController : Controller
         return new RedirectResult("/signin");
       }
     }
+
+  [Route ("/signout")]
+  [HttpGet]
+  
+    public IActionResult Logout()
+{
+    HttpContext.SignOutAsync();
+    HttpContext.Session.Clear();
+    return RedirectToAction("Index", "Home");
+}
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
