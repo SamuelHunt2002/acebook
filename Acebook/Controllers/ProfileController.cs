@@ -22,6 +22,11 @@ public class ProfileController : Controller
     public IActionResult Index()
     {
         // Get the user's ID from the session
+         if (HttpContext.Session.GetInt32("user_id") == null)
+        {
+            // Redirect the user to the login page if they are not logged in
+            return RedirectToAction("Index", "Home");
+        }
         int userId = HttpContext.Session.GetInt32("user_id").Value;
         Console.WriteLine("USER ID IS HERE");
         Console.WriteLine(userId);
