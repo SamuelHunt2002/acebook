@@ -19,6 +19,8 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<acebook.ActionFilters.AuthenticationFilter>();
 var app = builder.Build();
 
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
