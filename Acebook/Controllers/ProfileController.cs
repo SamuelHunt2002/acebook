@@ -28,8 +28,6 @@ public class ProfileController : Controller
             return RedirectToAction("Index", "Home");
         }
         int userId = HttpContext.Session.GetInt32("user_id").Value;
-        Console.WriteLine("USER ID IS HERE");
-        Console.WriteLine(userId);
         // Retrieve the user's data from the database
         AcebookDbContext dbContext = new AcebookDbContext();
 var user = dbContext.Users
@@ -39,7 +37,7 @@ var user = dbContext.Users
 
         // Pass the user data to the view
         ViewBag.User = user;
-        ViewBag.User = user;
+
 
         return View(user);
     }

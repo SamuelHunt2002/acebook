@@ -25,4 +25,10 @@
       </button>
     </p>
   </div>
+  @if (!string.IsNullOrEmpty(Context.Session.GetString("login_error"))) {
+    <p> @Context.Session.GetString("login_error") </p>
+    Context.Session.SetString("login_error", "");
+  }
+
+
 </form>

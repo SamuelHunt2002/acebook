@@ -26,15 +26,18 @@ public class SessionsController : Controller
     [HttpPost]
     public RedirectResult CreateSession(string email, string password) {
       AcebookDbContext dbContext = new AcebookDbContext();
-      User? user = dbContext.Users.Where(user => user.Email == email).First();
+
+      User? user = dbContext.Users.Where(user => user.Email == email).FirstOrDefault();
       if(user != null && user.Password == password)
       {
+        HttpContext.Session.SetString("login_error", null);
         HttpContext.Session.SetInt32("user_id", user.Id);
         SessionHelper.SetName(HttpContext, user.Name);
         return new RedirectResult("/posts");
-      }
+      } 
       else
       {
+        HttpContext.Session.SetString("login_error", "Incorrect email and/or password!");
         return new RedirectResult("/signin");
       }
     }
