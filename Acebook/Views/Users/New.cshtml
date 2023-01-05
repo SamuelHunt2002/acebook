@@ -1,6 +1,39 @@
 <form action="/users" method="post">
-  <input type='text' id='name' name='name' placeholder='name' />
-  <input type='text' id='email' name='email' placeholder='email' />
-  <input type='password' id='password' name='password'/>
-  <input type='submit' id='submit' value='Submit' />
+  <div class="field">
+    <p class="control has-icons-left has-icons-right">
+      <input class="input" type="text" placeholder="Name" id='name' name='name'>
+      <span class="icon is-small is-left">
+        <i class="fas fa-user"></i>
+      </span>
+      <span class="icon is-small is-right">
+        <i class="fas fa-check"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+    <p class="control has-icons-left has-icons-right">
+      <input class="input" type="email" placeholder="Email" id='email' name='email'>
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+      <span class="icon is-small is-right">
+        <i class="fas fa-check"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+    <p class="control has-icons-left">
+      <input class="input" type="password" placeholder="Password" id='password' name='password'>
+      <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+    <p class="control">
+      <button class="button is-success" id='submit' value='Submit'>
+        Create Account
+      </button>
+    </p>
+  </div>
 </form>
