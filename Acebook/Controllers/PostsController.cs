@@ -31,22 +31,23 @@ public class PostsController : Controller
     }
 
     [Route("/posts")]
-[HttpPost]
-public IActionResult Create(Post post) {
-  if (string.IsNullOrWhiteSpace(post.Content))
-  {
-      return RedirectToAction("Index");
-  }
-  else
-  {
-      AcebookDbContext dbContext = new AcebookDbContext();
-      int currentUserId = HttpContext.Session.GetInt32("user_id").Value;
-      post.UserId = currentUserId;
-      dbContext.Posts.Add(post);
-      dbContext.SaveChanges();
-      return RedirectToAction("Index");
-  }
-}
+    [HttpPost]
+    public IActionResult Create(Post post)
+    {
+        if (string.IsNullOrWhiteSpace(post.Content))
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            AcebookDbContext dbContext = new AcebookDbContext();
+            int currentUserId = HttpContext.Session.GetInt32("user_id").Value;
+            post.UserId = currentUserId;
+            dbContext.Posts.Add(post);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+    }
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

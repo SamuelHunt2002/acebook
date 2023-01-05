@@ -30,6 +30,7 @@ public class SessionsController : Controller
       if(user != null && user.Password == password)
       {
         HttpContext.Session.SetInt32("user_id", user.Id);
+        SessionHelper.SetName(HttpContext, user.Name);
         return new RedirectResult("/posts");
       }
       else
