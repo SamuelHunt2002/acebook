@@ -1,0 +1,14 @@
+@model acebook.Models.User
+
+
+<h2>@Model.Name's Profile</h2>
+
+<p>Email: @Model.Email</p>
+
+<h3>Posts</h3>
+<ul>
+    @foreach (var post in Model.Posts)
+    {
+        <li>@post.Content</li>
+    }
+</ul>
