@@ -41,4 +41,20 @@ var user = dbContext.Users
 
         return View(user);
     }
+    [Route("/profile/{userId}")]
+    [HttpGet]
+    public IActionResult Show(int userId)
+    {
+    // Retrieve the user's data from the database
+    AcebookDbContext dbContext = new AcebookDbContext();
+    var user = dbContext.Users
+        .Include(u => u.Posts)  // Include related posts
+        .Where(u => u.Id == userId)
+        .First();
+
+    // Pass the user data to the view
+    ViewBag.User = user;
+
+    return View(user);
+    }
 }
