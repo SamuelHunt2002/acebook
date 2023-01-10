@@ -1,0 +1,23 @@
+@model List<FriendRequest>
+
+<h1> Friend Requests </h1>
+
+
+<div>
+    <table>
+        <tr>
+            <th>Sender</th>
+            <th>Recipient</th>
+            <th>Status</th>
+        </tr>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.User.Name</td>
+                <td>@request.RecipientId</td>
+                <td>@request.Accepted</td>
+            </tr>
+        }
+    </table>
+</div>
+
