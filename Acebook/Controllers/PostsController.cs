@@ -50,6 +50,27 @@ public class PostsController : Controller
         }
     }
 
+    [Route("/posts/{postId}/comments")]
+    [HttpPost]
+    public IActionResult CreateComment(int postId, Comment comment)
+    {
+        if (string.IsNullOrWhiteSpace(comment.Content))
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            AcebookDbContext dbContext = new AcebookDbContext();
+            int currentUserId = HttpContext.Session.GetInt32("user_id").Value;
+            comment.UserId = currentUserId;
+            comment.PostID = postId;
+            dbContext.Comments.Add(comment);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+    }
+
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

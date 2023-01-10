@@ -25,6 +25,17 @@
                     <p>@comment.Content</p>
                 </div>
             }}
+            <form action="/posts/@post.Id/comments" method="post">
+            <div class="field">
+                <label class="label">Leave a comment:</label>
+                <div class="control">
+                    <input type="text" class="input" name="content"/>
+                </div>
+            </div>
+            <div class="control">
+                <input type="submit" class="button is-link" value="Submit Comment"/>
+            </div>
+        </form>
 </div>
 }
 <br> 
