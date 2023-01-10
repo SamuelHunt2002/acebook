@@ -57,4 +57,11 @@ var user = dbContext.Users
 
     return View(user);
     }
+    [Route("/search")]
+    [HttpGet]
+    public IActionResult Search()
+{
+    return View();
+}
+
 }

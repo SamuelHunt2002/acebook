@@ -11,8 +11,14 @@
 {
 <div class="box">
   <div>
-  <b><p>@post.User.Name </p> </b>
+  <b>
+    <p>
+      <a href="/profile/@post.User.Id" class="black-link underline-on-hover">@post.User.Name
+      </a>
+
+  </b>
   <p>@post.Content</p>
+  <p>@post.Likes</p>
   </div>
 </div>
 }
