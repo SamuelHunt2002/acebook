@@ -53,6 +53,8 @@ Changes are applied to the database programatically, using files called _migrati
   * E.g.  `dotnet ef migrations add AddTitleToPosts`
 - Run the migration
   * `dotnet ef database update`
+  * This only runs the migration for the test db. You will also need to do:
+  * DATABASE_NAME=acebook_csharp_development dotnet ef database update
 
 ### Troubleshooting
 
