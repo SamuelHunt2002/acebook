@@ -23,7 +23,8 @@ public class PostsController : Controller
     {
         AcebookDbContext dbContext = new AcebookDbContext();
         var posts = dbContext.Posts
-          .Include(p => p.User)  // Include user data for each post
+          .Include(p => p.User)
+          .Include(p => p.Comments)
           .ToList();
         posts.Reverse();
         ViewBag.Posts = posts;

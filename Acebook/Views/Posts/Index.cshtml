@@ -14,6 +14,17 @@
   <b><p>@post.User.Name </p> </b>
   <p>@post.Content</p>
   </div>
+   @if (post.Comments?.Count > 0)
+    {
+      <br>
+      <h4>Comments Section</h4>
+   @foreach (Comment comment in post.Comments)
+            {
+                <div>
+                    <i><p>@comment.User.Name</p></i>
+                    <p>@comment.Content</p>
+                </div>
+            }}
 </div>
 }
 <br> 
