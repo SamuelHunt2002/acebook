@@ -45,7 +45,6 @@ public class PostsController : Controller
     Console.WriteLine(friends.ToString());
     Console.WriteLine(friends.Count().ToString());
     var posts = dbContext.Posts
-        .Include(p => p.User)
         .Include(p => p.Comments)
         .ThenInclude(p => p.User)
         .Where(p => friends.Contains(p.UserId))
