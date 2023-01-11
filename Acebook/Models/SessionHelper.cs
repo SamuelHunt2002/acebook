@@ -34,5 +34,17 @@ namespace acebook.Models
                 return false;
             }
         }
+
+            public bool IsFriendWith(int userId, int otherUserId)
+    {
+        AcebookDbContext dbContext = new AcebookDbContext();
+        var friendRelation = dbContext.FriendRequests
+            .Where(fr => (fr.SenderId == userId && fr.RecipientId == otherUserId) || (fr.SenderId == otherUserId && fr.RecipientId == userId))
+            .Where(fr => fr.Accepted)
+            .FirstOrDefault();
+
+        return friendRelation != null;
     }
 }
+
+    }

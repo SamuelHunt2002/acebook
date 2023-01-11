@@ -7,35 +7,24 @@
 
 <br>
 
-<<<<<<< HEAD
-
-=======
-<form action="/friendsposts" method="get">
-    <input type="submit" value="View friends' posts"/>
+<form action="/posts" method="get">
+    <input type="submit" value="View all posts"/>
 </form>
->>>>>>> 45f6337bb66ced5716c5f5c4f289c12fc1e7cdde
-
 
 @foreach (Post post in ViewBag.Posts)
 {
 <div class="box">
   <div>
-  <b><p><img src="Images/slothavatar.png" class="this is you" alt="this is what you look like" style="width:40px;height:40px;" />
-
-      <a href="/profile/@post.User.Id" class="black-link underline-on-hover">@post.User.Name</p> </b>
+  <b><p>@post.User.Name </p> </b>
   <p>@post.Content</p>
   </div>
-   @if (post.Comments?.Count > 0)
-    {
-      <br>
-      <h4>Comments Section</h4>
    @foreach (Comment comment in post.Comments)
             {
                 <div>
                     <i><p>@comment.User.Name</p></i>
                     <p>@comment.Content</p>
                 </div>
-            }}
+            }
             <form action="/posts/@post.Id/comments" method="post">
             <div class="field">
                 <label class="label">Leave a comment:</label>
@@ -47,7 +36,7 @@
                 <input type="submit" class="button is-link" value="Submit Comment"/>
             </div>
         </form>
-</div>
+  </div>
 }
 <br> 
 <br>
