@@ -7,13 +7,13 @@
 
 <br>
 
-<<<<<<< HEAD
 
-=======
+
+
 <form action="/friendsposts" method="get">
     <input type="submit" value="View friends' posts"/>
 </form>
->>>>>>> 45f6337bb66ced5716c5f5c4f289c12fc1e7cdde
+
 
 
 @foreach (Post post in ViewBag.Posts)
@@ -22,7 +22,7 @@
   <div>
   <b><p><img src="Images/slothavatar.png" class="this is you" alt="this is what you look like" style="width:40px;height:40px;" />
 
-      <a href="/profile/@post.User.Id" class="black-link underline-on-hover">@post.User.Name</p> </b>
+      <a href="/profile/@post.User.Id" class="black-link underline-on-hover">@post.User.Name</a> </p> </b>
   <p>@post.Content</p>
   </div>
    @if (post.Comments?.Count > 0)
