@@ -1,33 +1,61 @@
 @model List<FriendRequest>
 
-<h1> Friend Requests </h1>
-<br> 
-<h2> Send Request</h2>
+
+<h2 class="title is-2"> Send Request</h2>
 <form method="post" action="/friends/request">
-    <input type="text" name="recipientEmail" placeholder="Recipient Email">
+    <input type="email" name="recipientEmail" placeholder="Recipient Email">
     <input type="submit" value="Submit" class="button">
 </form>
-<br> <br> 
+
+
+
+<br>
+<h2 class="title is-2"> Your Friends</h2>
+<div>
+<table class="table is-bordered">
+    <tr>
+            <th>Friend</th>
+            <th>Actions</th>
+    </tr>
+    @foreach (var request in Model) 
+    {
+        if (request.Accepted) {
+            <tr>
+                <td>@request.Recipient.Name</td>
+                <td>
+                    <form method="post" action="/friends/delete">
+                        <input type="hidden" name="requestId" value="@request.Id" />
+                        <input type="submit" value="Unfriend" class="button" />
+                    </form>
+                    </td> 
+                    </tr>
+        }
+    }
+</table>
+
+
+</div>
+
+<h2 class="title is-2"> Pending Requests</h2>
 <div>
     <table class="table is-bordered">
         <tr>
-            <th>Sender</th>
             <th>Recipient</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
         @foreach (var request in Model)
         {
+            if (!request.Accepted) {
             <tr>
-                <td>@request.User.Name</td>
                 <td>@request.Recipient.Name</td>
                 <td> @if (request.Accepted) {
                 <p> Accepted </p> } else {
                     <p> Sent </p>
                 }
-                </td>
-                <td>
-                @if (!request.Accepted) {
+                </td >
+                @if (!request.Accepted && request.RecipientId == ViewBag.loggedInId) {
+                    <td>
                     <form method="post" action="/friends/accept">
                         <input type="hidden" name="requestId" value="@request.Id" />
                         <input type="submit" value="Accept" class="button" />
@@ -36,17 +64,20 @@
                         <input type="hidden" name="requestId" value="@request.Id" />
                         <input type="submit" value="Decline" class="button" />
                     </form>
-                
+                    </td>
                 
                 }
-                else {
+                else if (!request.Accepted) {
+                    <td>
                    <form method="post" action="/friends/delete">
                         <input type="hidden" name="requestId" value="@request.Id" />
-                        <input type="submit" value="Unfriend" class="button" />
+                        <input type="submit" value="Delete Request" class="button" />
                     </form> 
+                    </td>
                 }
-                </td>
+                
             </tr>
+        }
         }
     </table>
 </div>

@@ -8,6 +8,8 @@ public class FriendRequest
 
 public User? User {get; set;}
 
+public int UserId {get; set;}
+
 public int SenderId {get; set;}
 
 public int RecipientId {get; set;}
