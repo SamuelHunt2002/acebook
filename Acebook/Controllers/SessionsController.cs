@@ -30,7 +30,7 @@ public class SessionsController : Controller
     HttpContext.Session.SetString("login_error", "No username and/or password submitted!");
         return new RedirectResult("/signin");
   }
-      User? user = dbContext.Users.Where(user => user.Email.ToLower() == email.ToLower()).FirstOrDefault();
+      User? user = dbContext.User.Where(user => user.Email.ToLower() == email.ToLower()).FirstOrDefault();
       if(user != null && user.Password == password)
       {
         HttpContext.Session.SetString("login_error", "");

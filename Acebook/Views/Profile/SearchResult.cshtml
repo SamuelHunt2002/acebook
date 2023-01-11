@@ -1,0 +1,25 @@
+@model acebook.Models.User
+
+<div class="section">
+    <h1 class="title is-1">@Model.Name's Profile</h1>
+    <div class="container">
+        <div class="box">
+            <h3 class="title is-3"> Posts </h3>
+            <ul>
+                @foreach (var post in Model.Posts)
+                {
+                    <li class="content">@post.Content</li>
+                }
+            </ul>
+
+    @if(ViewBag.IsFriendWith) {
+            @using (Html.BeginForm("SendFriendRequestById", "FriendRequests")) {
+
+    <p>
+        <input type="hidden" name="targetId" value="@Model.Id">
+        <input type="submit" value="Send Friend Request" class="button"> 
+    </p>
+            }}
+        </div>
+    </div>
+</div>

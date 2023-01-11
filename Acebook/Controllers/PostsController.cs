@@ -23,12 +23,36 @@ public class PostsController : Controller
     {
         AcebookDbContext dbContext = new AcebookDbContext();
         var posts = dbContext.Posts
-          .Include(p => p.User)  // Include user data for each post
+          .Include(p => p.User)
+          .Include(p => p.Comments)
           .ToList();
         posts.Reverse();
         ViewBag.Posts = posts;
         return View();
     }
+
+    [Route("/friendsposts")]
+    [HttpGet]
+    public IActionResult FriendsPosts()
+    {
+     AcebookDbContext dbContext = new AcebookDbContext();
+    int userId = HttpContext.Session.GetInt32("user_id").Value;
+    var friends = dbContext.FriendRequests.Where(fr => fr.SenderId == userId || fr.RecipientId == userId)
+        .Where(fr => fr.Accepted == true)
+        .Select(fr => fr.SenderId == userId ? fr.RecipientId : fr.SenderId)
+        .ToList();
+
+    var posts = dbContext.Posts
+        .Include(p => p.User)
+        .Include(p => p.Comments)
+        .Where(p => friends.Contains(p.UserId))
+        .ToList();
+
+    posts.Reverse();
+    ViewBag.Posts = posts;
+    return View();
+}
+
 
     [Route("/posts")]
     [HttpPost]
@@ -48,6 +72,29 @@ public class PostsController : Controller
             return RedirectToAction("Index");
         }
     }
+
+    [Route("/posts/{postId}/comments")]
+    [HttpPost]
+    public IActionResult CreateComment(int postId, Comment comment)
+    {
+        if (string.IsNullOrWhiteSpace(comment.Content))
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            AcebookDbContext dbContext = new AcebookDbContext();
+            int currentUserId = HttpContext.Session.GetInt32("user_id").Value;
+            comment.UserId = currentUserId;
+            comment.PostID = postId;
+            dbContext.Comments.Add(comment);
+            dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+    }
+
+
+
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

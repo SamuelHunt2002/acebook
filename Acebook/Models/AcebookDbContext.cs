@@ -3,9 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 public class AcebookDbContext : DbContext
 {
-    public DbSet<Post>? Posts { get; set; }
-    public DbSet<User>? Users { get; set; }
-
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<User> Users { get; set; }
+    // Do not delete this line of code it does something! 
+    public DbSet<User> User { get; set; }
+    public DbSet<Comment>? Comments { get; set; }
+    public DbSet<FriendRequest> FriendRequests {get; set;}
     public string? DbPath { get; }
 
     public string? GetDatabaseName() {
@@ -35,5 +38,10 @@ public class AcebookDbContext : DbContext
         modelBuilder.Entity<Post>()
           .Navigation(post => post.User)
           .AutoInclude();
+
+          modelBuilder.Entity<User>()
+.HasMany(p => p.Posts)
+.WithOne(u => u.User)
+.HasForeignKey(p => p.UserId);
     }
 }
