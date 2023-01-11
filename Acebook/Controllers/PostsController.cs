@@ -41,10 +41,13 @@ public class PostsController : Controller
         .Where(fr => fr.Accepted == true)
         .Select(fr => fr.SenderId == userId ? fr.RecipientId : fr.SenderId)
         .ToList();
-
+        Console.WriteLine("HERE");
+    Console.WriteLine(friends.ToString());
+    Console.WriteLine(friends.Count().ToString());
     var posts = dbContext.Posts
         .Include(p => p.User)
         .Include(p => p.Comments)
+        .ThenInclude(p => p.User)
         .Where(p => friends.Contains(p.UserId))
         .ToList();
 
