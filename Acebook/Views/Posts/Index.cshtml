@@ -7,11 +7,16 @@
 
 <br>
 
+
+
+
 @foreach (Post post in ViewBag.Posts)
 {
 <div class="box">
   <div>
-  <b><p>@post.User.Name </p> </b>
+  <b><p><img src="Images/slothavatar.png" class="this is you" alt="this is what you look like" style="width:40px;height:40px;" />
+
+      <a href="/profile/@post.User.Id" class="black-link underline-on-hover">@post.User.Name</p> </b>
   <p>@post.Content</p>
   </div>
    @if (post.Comments?.Count > 0)
