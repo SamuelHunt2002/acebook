@@ -64,7 +64,11 @@ public class ProfileController : Controller
     public IActionResult SearchResult(int userId)
 {
     AcebookDbContext dbContext = new AcebookDbContext();
-    User user = dbContext.Users.Where(u => u.Id == userId).First();
+    var loggedInId = HttpContext.Session.GetInt32("user_id").Value;
+    User user = dbContext.Users.Where(u => u.Id == userId).Include(u => u.Posts).First();
+    SessionHelper sessionHelper = new SessionHelper();
+    ViewBag.SessionId = loggedInId; 
+    ViewBag.IsFriendWith = sessionHelper.IsFriendWith(loggedInId, userId);
     return View(user);
 }
 

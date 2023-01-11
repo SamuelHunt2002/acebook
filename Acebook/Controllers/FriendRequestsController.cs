@@ -55,6 +55,23 @@ namespace acebook.Controllers
             return RedirectToAction("New", "FriendRequests");
         }
 
+        [Route("/friends/requestbyid")]
+        [HttpPost]
+        public IActionResult SendFriendRequestById (int targetId) {
+            AcebookDbContext dbContext = new AcebookDbContext();
+            var recipient = dbContext.Users.FirstOrDefault(user => user.Id == targetId);
+            var senderId = HttpContext.Session.GetInt32("user_id").Value;
+            var friendRequest = new FriendRequest {
+                SenderId = senderId,
+                UserId = senderId,
+                RecipientId = recipient.Id,
+                Accepted = false
+            };
+            dbContext.FriendRequests.Add(friendRequest);
+            dbContext.SaveChanges();
+            return RedirectToAction("New", "FriendRequests");
+            }
+        
 
         [Route("/friends/accept")]
         [HttpPost]

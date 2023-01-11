@@ -1,16 +1,14 @@
 @model List<FriendRequest>
 
-
-<h2 class="title is-2"> Send Request</h2>
+<h1> Friend Requests </h1>
+<br> 
+<h2> Send Request</h2>
 <form method="post" action="/friends/request">
-    <input type="email" name="recipientEmail" placeholder="Recipient Email">
+    <input type="text" name="recipientEmail" placeholder="Recipient Email">
     <input type="submit" value="Submit" class="button">
 </form>
+<br> <br> 
 
-
-
-<br>
-<h2 class="title is-2"> Your Friends</h2>
 <div>
 <table class="table is-bordered">
     <tr>
@@ -35,11 +33,10 @@
 
 
 </div>
-
-<h2 class="title is-2"> Pending Requests</h2>
 <div>
     <table class="table is-bordered">
         <tr>
+            <th>Sender</th>
             <th>Recipient</th>
             <th>Status</th>
             <th>Actions</th>
@@ -48,6 +45,7 @@
         {
             if (!request.Accepted) {
             <tr>
+                <td>@request.User.Name</td>
                 <td>@request.Recipient.Name</td>
                 <td> @if (request.Accepted) {
                 <p> Accepted </p> } else {
@@ -74,6 +72,14 @@
                         <input type="submit" value="Delete Request" class="button" />
                     </form> 
                     </td>
+                }
+                else {
+                    <td>
+                    <form method="post" action="/friends/delete">
+                        <input type="hidden" name="requestId" value="@request.Id" />
+                        <input type="submit" value="Unfriend" class="button" />
+                    </form>
+                    </td> 
                 }
                 
             </tr>

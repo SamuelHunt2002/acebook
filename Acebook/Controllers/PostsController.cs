@@ -31,6 +31,29 @@ public class PostsController : Controller
         return View();
     }
 
+    [Route("/friendsposts")]
+    [HttpGet]
+    public IActionResult FriendsPosts()
+    {
+     AcebookDbContext dbContext = new AcebookDbContext();
+    int userId = HttpContext.Session.GetInt32("user_id").Value;
+    var friends = dbContext.FriendRequests.Where(fr => fr.SenderId == userId || fr.RecipientId == userId)
+        .Where(fr => fr.Accepted == true)
+        .Select(fr => fr.SenderId == userId ? fr.RecipientId : fr.SenderId)
+        .ToList();
+
+    var posts = dbContext.Posts
+        .Include(p => p.User)
+        .Include(p => p.Comments)
+        .Where(p => friends.Contains(p.UserId))
+        .ToList();
+
+    posts.Reverse();
+    ViewBag.Posts = posts;
+    return View();
+}
+
+
     [Route("/posts")]
     [HttpPost]
     public IActionResult Create(Post post)
@@ -69,6 +92,8 @@ public class PostsController : Controller
             return RedirectToAction("Index");
         }
     }
+
+
 
 
 
