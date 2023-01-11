@@ -1,21 +1,51 @@
 @model List<FriendRequest>
 
 <h1> Friend Requests </h1>
-
-
+<br> 
+<h2> Send Request</h2>
+<form method="post" action="/friends/request">
+    <input type="text" name="recipientEmail" placeholder="Recipient Email">
+    <input type="submit" value="Submit" class="button">
+</form>
+<br> <br> 
 <div>
-    <table>
+    <table class="table is-bordered">
         <tr>
             <th>Sender</th>
             <th>Recipient</th>
             <th>Status</th>
+            <th>Actions</th>
         </tr>
         @foreach (var request in Model)
         {
             <tr>
                 <td>@request.User.Name</td>
-                <td>@request.RecipientId</td>
-                <td>@request.Accepted</td>
+                <td>@request.Recipient.Name</td>
+                <td> @if (request.Accepted) {
+                <p> Accepted </p> } else {
+                    <p> Sent </p>
+                }
+                </td>
+                <td>
+                @if (!request.Accepted) {
+                    <form method="post" action="/friends/accept">
+                        <input type="hidden" name="requestId" value="@request.Id" />
+                        <input type="submit" value="Accept" class="button" />
+                    </form>
+                    <form method="post" action="/friends/delete">
+                        <input type="hidden" name="requestId" value="@request.Id" />
+                        <input type="submit" value="Decline" class="button" />
+                    </form>
+                
+                
+                }
+                else {
+                   <form method="post" action="/friends/delete">
+                        <input type="hidden" name="requestId" value="@request.Id" />
+                        <input type="submit" value="Unfriend" class="button" />
+                    </form> 
+                }
+                </td>
             </tr>
         }
     </table>
