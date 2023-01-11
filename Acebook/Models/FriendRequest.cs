@@ -8,10 +8,21 @@ public class FriendRequest
 
 public User? User {get; set;}
 
+public int UserId {get; set;}
+
 public int SenderId {get; set;}
 
 public int RecipientId {get; set;}
 
 public bool Accepted {get; set;}
+
+public User Recipient {
+    get {
+        using (var dbContext = new AcebookDbContext()) {
+            return dbContext.Users.FirstOrDefault(user => user.Id == this.RecipientId);
+        }
+    }
+}
+
 
 }
