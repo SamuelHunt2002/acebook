@@ -1,9 +1,74 @@
 @model acebook.Models.User
+<style>
+    .profile-header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
 
-<div class="profile">
-    <h1>@Model.Name's Profile</h1>
-    <p>First Name: @Model.Name</p>
-    <h2>Recent Posts</h2>
+    .profile-header h2 {
+        margin: 0;
+        font-size: 36px;
+    }
+
+    .profile-header p {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .profile-posts {
+        margin-top: 20px;
+    }
+
+    .profile-posts li {
+        list-style: none;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+</style>
+@{
+    string greeting;
+    switch (DateTime.Today.DayOfWeek)
+    {
+        case DayOfWeek.Monday:
+            greeting = "Happy Monday,";
+            break;
+        case DayOfWeek.Tuesday:
+            greeting = "Happy Tuesday,";
+            break;
+        case DayOfWeek.Wednesday:
+            greeting = "Happy Wednesday,";
+            break;
+        case DayOfWeek.Thursday:
+            greeting = "Happy Thursday,";
+            break;
+        case DayOfWeek.Friday:
+            greeting = "Happy Friday,";
+            break;
+        case DayOfWeek.Saturday:
+            greeting = "Happy Saturday,";
+            break;
+        case DayOfWeek.Sunday:
+            greeting = "Happy Sunday,";
+            break;
+        // Add more cases for the other days of the week
+        default:
+            greeting = "Hello";
+            break;
+    }
+}
+
+<div class="profile-header">
+
+    <h2>@greeting @Model.Name</h2>
+    <p>Email: @Model.Email</p>
+<i><div id="activity"></div></i>
+<i><div id="ip"></div></i>
+</div>
+
+<div class="container profile-posts">
+    <h3>Posts</h3>
     <ul>
         @foreach (var post in Model.Posts)
         {
@@ -11,3 +76,24 @@
         }
     </ul>
 </div>
+<script> 
+    // Make an HTTP GET request to the API endpoint
+    fetch('https://www.boredapi.com/api/activity/')
+        .then(response => response.json())  // Parse the response as JSON
+        .then(data => {
+            // Get the activity from the response data
+            let activity = data.activity.toLowerCase();
+            // Display the activity suggestion in the div element
+            document.getElementById('activity').innerHTML = `Bored? Why don't you ${activity}!`;
+        });
+
+        fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())  // Parse the response as JSON
+    .then(data => {
+      // Get the IP address from the response data
+      let ip = data.ip;
+      // Display the IP address in the div element
+      document.getElementById('ip').innerHTML = "Your ip address is: " + ip + ". Sending a SWAT team your location now.";
+    });
+
+</script>
