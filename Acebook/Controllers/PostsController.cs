@@ -26,7 +26,8 @@ public class PostsController : Controller
           .Include(p => p.User)
           .Include(p => p.Comments)
           .ToList();
-        posts.OrderBy(p => p.Id);
+        posts.Reverse();
+        ViewBag.posts = posts;
         return View();
     }
 
@@ -49,7 +50,7 @@ public class PostsController : Controller
         .Where(p => friends.Contains(p.UserId))
         .ToList();
 
-    posts.Reverse();
+    posts.OrderBy(p => p.Id);
     ViewBag.Posts = posts;
     return View();
 }

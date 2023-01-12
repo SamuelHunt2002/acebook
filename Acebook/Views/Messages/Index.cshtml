@@ -1,0 +1,8 @@
+@model List<Message>
+
+    @foreach(var message in Model) {
+        <p> From: @message.Sender.Name </p>
+        <p> To: @message.Recipient.Name </p>
+        <p> @message.Content </p>
+        <br>
+    }

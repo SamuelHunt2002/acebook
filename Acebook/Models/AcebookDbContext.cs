@@ -8,6 +8,8 @@ public class AcebookDbContext : DbContext
     // Do not delete this line of code it does something! 
     public DbSet<User> User { get; set; }
     public DbSet<Comment>? Comments { get; set; }
+
+    public DbSet<Message>? Messages { get; set; }
     public DbSet<FriendRequest> FriendRequests {get; set;}
     public string? DbPath { get; }
 
@@ -43,5 +45,16 @@ public class AcebookDbContext : DbContext
 .HasMany(p => p.Posts)
 .WithOne(u => u.User)
 .HasForeignKey(p => p.UserId);
+
+modelBuilder.Entity<Message>()
+    .HasOne(u => u.Sender)
+    .WithMany()
+    .HasForeignKey(u => u.SenderId);
+
+modelBuilder.Entity<Message>()
+    .HasOne(u => u.Recipient)
+    .WithMany()
+    .HasForeignKey(u => u.RecipientId);
+
     }
 }
