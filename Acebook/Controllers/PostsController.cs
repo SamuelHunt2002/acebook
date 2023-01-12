@@ -25,8 +25,12 @@ public class PostsController : Controller
         var posts = dbContext.Posts
           .Include(p => p.User)  // Include user data for each post
           .ToList();
-        posts.OrderBy(p => p.Id);
-        ViewBag.Posts = posts;
+          Console.WriteLine(posts.ElementAt(9).Id);
+
+
+        Console.WriteLine(posts.First().Id);
+        ViewBag.Posts = posts.OrderByDescending(p => p.Id);
+        Console.WriteLine(posts.First().Id);
         return View();
     }
     
