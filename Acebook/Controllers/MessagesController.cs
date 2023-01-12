@@ -29,5 +29,35 @@ public class MessagesController : Controller
         return View(messages);
     }
 
+    [Route("/messages")]
+    [HttpPost]
+    public IActionResult Send(string input, string targetEmail) {
+        AcebookDbContext acebookDbContext = new AcebookDbContext();
+        Message message = new Message();
+        var recipient = acebookDbContext.Users.FirstOrDefault(u => u.Email == targetEmail);
+        if (recipient == null) {
+            TempData["MessageEmailNotFound"] = "Recipient email is not found";
+            return RedirectToAction("Index");
+        }
+        int recipientId = recipient.Id;
+        SessionHelper sessionHelper = new SessionHelper();
+        
+        message.SenderId = HttpContext.Session.GetInt32("user_id").Value;
+        if (sessionHelper.IsFriendWith(message.SenderId, recipientId)) {
+            message.RecipientId = recipientId;
+            message.Content = input; 
+            Console.WriteLine("Here");
+            Console.WriteLine(message.Content);
+            acebookDbContext.Messages.Add(message);
+            acebookDbContext.SaveChanges();
+            return View("Index");
+        }
+        else {
+           TempData["MessageEmailIsNotFriend"] = "Recipient not a friend yet!";
+
+            return View("Index");
+        }
+    }
+
 
 }
