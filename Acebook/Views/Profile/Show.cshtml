@@ -56,14 +56,4 @@
             // Display the activity suggestion in the div element
             document.getElementById('activity').innerHTML = `Bored? Why don't you ${activity}!`;
         });
-
-        fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())  // Parse the response as JSON
-    .then(data => {
-      // Get the IP address from the response data
-      let ip = data.ip;
-      // Display the IP address in the div element
-      document.getElementById('ip').innerHTML = "Your ip address is: " + ip + ". Sending a SWAT team your location now.";
-    });
-
 </script>

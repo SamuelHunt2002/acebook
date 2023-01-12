@@ -12,7 +12,7 @@
                 }
             </ul>
 
-    @if(ViewBag.IsFriendWith) {
+    @if(!ViewBag.IsFriendWith) {
             @using (Html.BeginForm("SendFriendRequestById", "FriendRequests")) {
 
     <p>
