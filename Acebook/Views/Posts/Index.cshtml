@@ -21,6 +21,10 @@
   </b>
   <p>@post.Content</p>
   <p>@post.Likes</p>
+<form action="/posts/like" method="post">
+  <input type="hidden" name="postId" value="@post.Id" />
+  <input type="submit" name="like" value="Like" />
+</form>
   </div>
 </div>
 }
