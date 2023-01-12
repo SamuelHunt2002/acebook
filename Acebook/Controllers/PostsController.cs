@@ -26,8 +26,7 @@ public class PostsController : Controller
           .Include(p => p.User)
           .Include(p => p.Comments)
           .ToList();
-        posts.Reverse();
-        ViewBag.Posts = posts;
+        posts.OrderBy(p => p.Id);
         return View();
     }
 
