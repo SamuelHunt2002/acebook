@@ -26,9 +26,12 @@ public class PostsController : Controller
           .Include(p => p.User)
           .Include(p => p.Comments)
           .ToList();
-        posts.OrderBy(p => p.Id);
+
+        ViewBag.Posts = posts.OrderByDescending(p => p.Id);
+
         return View();
     }
+
 
     [Route("/friendsposts")]
     [HttpGet]
@@ -73,6 +76,15 @@ public class PostsController : Controller
             return RedirectToAction("Index");
         }
     }
+     [Route("/posts/like")]
+     [HttpPost]
+     public IActionResult AddLikes(int postId){
+         AcebookDbContext dbContext = new AcebookDbContext();
+         var post = dbContext.Posts.First(p => p.Id == postId);
+         post.Likes += 1;
+         dbContext.SaveChanges();
+         return RedirectToAction("Index");
+    }
 
     [Route("/posts/{postId}/comments")]
     [HttpPost]
@@ -103,4 +115,5 @@ public class PostsController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
 }

@@ -67,7 +67,7 @@ public class ProfileController : Controller
     var loggedInId = HttpContext.Session.GetInt32("user_id").Value;
     User user = dbContext.Users.Where(u => u.Id == userId).Include(u => u.Posts).First();
     SessionHelper sessionHelper = new SessionHelper();
-    ViewBag.SessionId = loggedInId; 
+    ViewBag.SessionId = loggedInId;
     ViewBag.IsFriendWith = sessionHelper.IsFriendWith(loggedInId, userId);
     return View(user);
 }
@@ -78,4 +78,5 @@ public class ProfileController : Controller
 {
     return View();
 }
+
 }
