@@ -29,6 +29,7 @@ public class PostsController : Controller
         ViewBag.Posts = posts;
         return View();
     }
+    
 
     [Route("/posts")]
     [HttpPost]
@@ -48,7 +49,11 @@ public class PostsController : Controller
             return RedirectToAction("Index");
         }
     }
+<<<<<<< HEAD
       Route("/posts/like")]
+=======
+     [Route("/posts/like")]
+>>>>>>> de20485 (Button is done but buggy)
      [HttpPost]
      public IActionResult AddLikes(int postId){
          AcebookDbContext dbContext = new AcebookDbContext();
@@ -57,7 +62,10 @@ public class PostsController : Controller
          dbContext.SaveChanges();
          return RedirectToAction("Index");
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> de20485 (Button is done but buggy)
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

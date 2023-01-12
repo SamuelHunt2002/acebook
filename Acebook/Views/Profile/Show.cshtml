@@ -1,32 +1,39 @@
 @model acebook.Models.User
 <style>
-    .profile-header {
-        background-color: #333;
-        color: #fff;
-        padding: 20px;
-        text-align: center;
+    .profile {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin: 20px;
     }
+    .profile h1 {
+      text-align: center;
+      font-size: 40px;
+    }
+    .profile p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    .profile h2 {
+      margin-top: 30px;
+    }
+    .profile ul {
+      list-style: none;
+      padding: 0;
+    }
+    .post {
+      background-color: #ebebeb;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+    .post:hover {
+      background-color: white;
 
-    .profile-header h2 {
-        margin: 0;
-        font-size: 36px;
     }
-
-    .profile-header p {
-        margin: 0;
-        font-size: 16px;
-    }
-
-    .profile-posts {
-        margin-top: 20px;
-    }
-
-    .profile-posts li {
-        list-style: none;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-    }
-</style>
+  </style>
 @{
     string greeting;
     switch (DateTime.Today.DayOfWeek)
@@ -69,10 +76,15 @@
 
 <div class="container profile-posts">
     <h3>Posts</h3>
+
+  <div class="profile">
+    <h1>@Model.Name's Profile</h1>
+    <p>First Name: @Model.Name</p>
+    <h2>Recent Posts</h2>
     <ul>
         @foreach (var post in Model.Posts)
         {
-            <li>@post.Content</li>
+            <li class="post">@post.Content</li>
         }
     </ul>
 </div>
