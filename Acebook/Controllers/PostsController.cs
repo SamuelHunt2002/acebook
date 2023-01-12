@@ -26,7 +26,7 @@ public class PostsController : Controller
           .Include(p => p.User)
           .Include(p => p.Comments)
           .ToList();
-wBag.Posts = posts.OrderByDescending(p => p.Id);
+        ViewBag.Posts = posts.OrderByDescending(p => p.Id);
         return View();
     }
 
