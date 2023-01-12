@@ -1,0 +1,25 @@
+@model List<Message>
+
+<h2>Send form:</h2>
+<form method="post" action="/messages"> 
+<input type="email" name="targetEmail" placeholder="Email of Person you wish to send to">
+<input type="text" name="input" placeholder="Message">
+    <input type="submit" value="Submit" class="button">
+
+</form>
+@if (TempData.ContainsKey("MessageEmailNotFound"))
+{
+    <p>@TempData["MessageEmailNotFound"]</p>
+}
+
+@if (TempData.ContainsKey("MessageEmailIsNotFriend"))
+{
+    <p>@TempData["MessageEmailIsNotFriend"]</p>
+}
+
+    @foreach(var message in Model) {
+        <p> From: @message.Sender.Name </p>
+        <p> To: @message.Recipient.Name </p>
+        <p> @message.Content </p>
+        <br>
+    }
