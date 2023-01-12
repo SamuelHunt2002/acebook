@@ -21,8 +21,29 @@ namespace acebook.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("acebook.Models.Like", b =>
+
+            {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Likes");
+                });
+
+
             modelBuilder.Entity("acebook.Models.Comment", b =>
-                {
+                            {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
@@ -32,7 +53,8 @@ namespace acebook.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
-                    b.Property<int>("PostID")
+                    b.Property<int>("PostID");
+                    b.Property<int>("PostId")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")
@@ -72,6 +94,7 @@ namespace acebook.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("FriendRequests");
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("acebook.Models.Message", b =>
@@ -111,6 +134,9 @@ namespace acebook.Migrations
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("integer");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");

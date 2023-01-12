@@ -11,6 +11,7 @@ public class AcebookDbContext : DbContext
 
     public DbSet<Message>? Messages { get; set; }
     public DbSet<FriendRequest> FriendRequests {get; set;}
+    public DbSet<Like>? Likes { get; set; }
     public string? DbPath { get; }
 
     public string? GetDatabaseName() {

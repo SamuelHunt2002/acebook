@@ -20,10 +20,20 @@
 {
 <div class="box">
   <div>
-  <b><p><img src="Images/slothavatar.png" class="this is you" alt="this is what you look like" style="width:40px;height:40px;" />
+  <b>
+    <p>
+      <img src="Images/slothavatar.png" class="this is you" alt="this is what you look like" style="width:40px;height:40px;" />
 
-      <a href="/profile/@post.User.Id" class="black-link underline-on-hover">@post.User.Name</a> </p> </b>
+      <a href="/profile/@post.User.Id" class="black-link underline-on-hover">@post.User.Name
+      </a>
+
+  </b>
   <p>@post.Content</p>
+  <p>@post.Likes</p>
+<form action="/posts/like" method="post">
+  <input type="hidden" name="postId" value="@post.Id" />
+  <input type="submit" name="like" value="Like" />
+</form>
   </div>
    @if (post.Comments?.Count > 0)
     {
