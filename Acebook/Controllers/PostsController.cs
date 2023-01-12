@@ -25,7 +25,7 @@ public class PostsController : Controller
         var posts = dbContext.Posts
           .Include(p => p.User)  // Include user data for each post
           .ToList();
-        posts.Reverse();
+        posts.OrderBy(p => p.Id);
         ViewBag.Posts = posts;
         return View();
     }
@@ -48,6 +48,16 @@ public class PostsController : Controller
             return RedirectToAction("Index");
         }
     }
+      Route("/posts/like")]
+     [HttpPost]
+     public IActionResult AddLikes(int postId){
+         AcebookDbContext dbContext = new AcebookDbContext();
+         var post = dbContext.Posts.First(p => p.Id == postId);
+         post.Likes += 1;
+         dbContext.SaveChanges();
+         return RedirectToAction("Index");
+    }
+
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
