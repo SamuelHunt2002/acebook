@@ -11864,9 +11864,9 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 }
 
 .welcome-bg {
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
+  background: linear-gradient(-45deg, #4fff00, #ffbe00, #1080ff, #f44336, #ff00e1);
+	background-size: 700% 700%;
+	animation: gradient 60s ease infinite;
 	height: 100vh;
 }
 

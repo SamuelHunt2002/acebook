@@ -50,7 +50,7 @@ public class MessagesController : Controller
             Console.WriteLine(message.Content);
             acebookDbContext.Messages.Add(message);
             acebookDbContext.SaveChanges();
-            return View("Index");
+            return RedirectToAction("Index");
         }
         else {
            TempData["MessageEmailIsNotFriend"] = "Recipient not a friend yet!";
