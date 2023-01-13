@@ -2,10 +2,9 @@
 
 <h2>Send form:</h2>
 <form method="post" action="/messages"> 
-<input type="email" name="targetEmail" placeholder="Email of Person you wish to send to">
+<input type="email" name="targetEmail" placeholder="Target Email">
 <input type="text" name="input" placeholder="Message">
-    <input type="submit" value="Submit" class="button">
-
+    <input type="submit" value="Submit" class="button is-primary is-light">
 </form>
 @if (TempData.ContainsKey("MessageEmailNotFound"))
 {
@@ -16,10 +15,13 @@
 {
     <p>@TempData["MessageEmailIsNotFriend"]</p>
 }
+<br>
 
     @foreach(var message in Model) {
-        <p> From: @message.Sender.Name </p>
-        <p> To: @message.Recipient.Name </p>
+        <div class="box">
+        <h4 class="title is-4"> From: @message.Sender.Name </h4>
+        <h4 class="subtitle is-4"> To: @message.Recipient.Name </h4>
         <p> @message.Content </p>
-        <br>
+        </div>
+
     }
