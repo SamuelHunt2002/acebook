@@ -37,7 +37,7 @@
 
   <div class="profile">
     <h1>@Model.Name's Profile</h1>
-    <p>First Name: @Model.Name</p>
+    <p>Name: @Model.Name</p>
     <h2>Recent Posts</h2>
     <ul>
         @foreach (var post in Model.Posts)
@@ -45,7 +45,16 @@
             <li class="post">@post.Content</li>
         }
     </ul>
+@if(!ViewBag.IsFriendWith) {
+            @using (Html.BeginForm("SendFriendRequestById", "FriendRequests")) {
+
+    <p>
+        <input type="hidden" name="targetId" value="@Model.Id">
+        <input type="submit" value="Send Friend Request" class="button"> 
+    </p>
+            }}
 </div>
+
 <script> 
     // Make an HTTP GET request to the API endpoint
     fetch('https://www.boredapi.com/api/activity/')

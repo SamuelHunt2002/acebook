@@ -54,6 +54,10 @@ public class ProfileController : Controller
             .First();
 
         // Pass the user data to the view
+        SessionHelper sessionHelper = new SessionHelper();
+        var loggedInId = HttpContext.Session.GetInt32("user_id").Value;
+        ViewBag.SessionId = loggedInId;
+    ViewBag.IsFriendWith = sessionHelper.IsFriendWith(loggedInId, userId);
         ViewBag.User = user;
 
         return View(user);
